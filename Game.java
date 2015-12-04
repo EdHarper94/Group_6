@@ -32,9 +32,6 @@ public class Game{
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(false);
-        /*frame.setTitle("Kablewie!");
-        String welcome = "Welcome to Kablewie!\nLet's set up a game...";
-        JOptionPane.showMessageDialog(frame, welcome, "Kablewie! - Game Setup", JOptionPane.WARNING_MESSAGE);*/
             
         Scanner in = new Scanner(System.in);
         String playerName;
@@ -44,19 +41,27 @@ public class Game{
         boolean gameType;
         int enteredNumOfTiles = 0;
         int enteredNumOfMines = 0;
+        String name;
 
         boolean gameStarted = isGameRunning(false);
         System.out.println("GAME IS IN PROGRESS: " + gameStarted);
-        System.out.print("Please enter name: ");
-        String name = in.nextLine();
+        do{
+            System.out.print("Please enter name: ");
+            name = in.nextLine();
+        }while (name.equals(""));
         System.out.print("Custom game?(y/n) ");
         String customGame = in.nextLine();
         if (customGame.equalsIgnoreCase("y")||customGame.equalsIgnoreCase("yes")){
             gameType = true;
-            System.out.print("Enter number of tiles: ");
-            enteredNumOfTiles = in.nextInt();
-            System.out.print("Enter number of mines: ");
-            enteredNumOfMines = in.nextInt();
+            do {
+                System.out.print("Enter number of tiles: ");
+                enteredNumOfTiles = in.nextInt();
+            }while (enteredNumOfTiles <= 0 || enteredNumOfTiles > 30);
+            int totalTiles = enteredNumOfTiles * enteredNumOfTiles;
+            do {
+                System.out.print("Enter number of mines: ");
+                enteredNumOfMines = in.nextInt();
+            }while (enteredNumOfMines >= totalTiles || enteredNumOfMines > 150);
         }
         else {
             gameType = false;
@@ -69,7 +74,7 @@ public class Game{
         Time t = new Time();
         //Board b = new Board();
         playerName = setup.getName();
-        time = t.getCurrentTime();
+        //time = t.getCurrentTime();
         boolean selectedGameType = setup.getGameType();
         int boardSize = setup.getNumberOfTiles();
         int totalMines = setup.getNumberOfMines();
@@ -84,24 +89,17 @@ public class Game{
         //String defaultSettings = "**GAME WILL BE PLAYED WITH DEFAULT SETTINGS**";
         String welcome = "**NAME: " + playerName + "\n**CUSTOM GAME: " + selectedGameType + "\n**TOTAL SIZE OF BOARD: " + totalBoardSize + " (" + boardSize +
                             "x" + boardSize + ")\n**NUMBER OF MINES: " + totalMines; //+ "\n**TIME (work in progress **IGNORE**): " + time;
-        //String defaultWelcome = defaultSettings + "\n\n" + welcome;
-        /*if (gameType == false){
-            JOptionPane.showMessageDialog(frame, defaultWelcome, "Welcome to Kablewie!", JOptionPane.WARNING_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(frame, welcome, "Welcome to Kablewie!", JOptionPane.WARNING_MESSAGE);
-        }*/
         JOptionPane.showMessageDialog(frame, welcome, "Welcome to Kablewie!", JOptionPane.WARNING_MESSAGE);
         System.out.println("GAME IS IN PROGRESS: " + gameStarted);
-        //gameStarted = isGameRunning(false);
-        //System.out.println("GAME IS IN PROGRESS: " + gameStarted);
-        /*do{
-            //currentTime = new SimpleDateFormat("HH:mm:ss").format(timerStart.getTime());
-            System.out.println(Time.getCurrentTime());
-        }while(gameStarted = isGameRunning(true));
-        gameStarted = isGameRunning(false);*/
+        do{
+            System.out.println(t.getTimeElapsed());
+        }while(isGameRunning(true));
+        gameStarted = isGameRunning(false);
 
     }
 }
+
+
 /*public class GameGUI extends JFrame{
     public final boolean setNameTF(JTextField playerNameTF){
       boolean test = true;

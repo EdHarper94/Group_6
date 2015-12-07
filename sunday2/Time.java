@@ -1,5 +1,13 @@
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @file Time.java
+ * @author XIAO WANG
+ * @date 2nd November
+ * @see Game.java
+ */
+
+
 public class Time {
 
 	private long m_StartTime;
@@ -10,27 +18,21 @@ public class Time {
 		m_TimeElapsed = 0;
 	}
 	
-	/*
-	public String getTimeElapsed(){
-	
-		m_TimeElapsed = System.currentTimeMillis() - m_StartTime;
-		return String.format("%02d : %02d : %02d", TimeUnit.MILLISECONDS.toHours(m_TimeElapsed), TimeUnit.MILLISECONDS.toMinutes(m_TimeElapsed), TimeUnit.MILLISECONDS.toSeconds(m_TimeElapsed));
-	
-	}
+	/**
+	* Setting time elapsed.
+	* Current time - start time
+	* @return m_TimeElapsed int
 	*/
-
-	/*public long setCurrentTime(){
-		m_StartTime = System.currentTimeMillis();
-		return m_StartTime;
-	}*/
-	
 	public long setTimeElapsed(){
 		m_TimeElapsed = System.currentTimeMillis() - m_StartTime;
 		return m_TimeElapsed;
-		//return new
-		//return String.format("%02d : %02d : %02d", TimeUnit.MILLISECONDS.toHours(this.m_TimeElapsed), TimeUnit.MILLISECONDS.toMinutes(this.m_TimeElapsed), TimeUnit.MILLISECONDS.toSeconds(this.m_TimeElapsed));
 	}
 	
+	
+	/**
+	* Converts Milliseconds into hours, minutes, seconds.
+	* Displays in correct format.
+	*/
 	public String getTimeElapsed(){
 		long hours = TimeUnit.MILLISECONDS.toHours(setTimeElapsed());
 		long minutes = TimeUnit.MILLISECONDS.toMinutes(setTimeElapsed());

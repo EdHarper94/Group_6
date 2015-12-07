@@ -1,43 +1,59 @@
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.ImageIcon;
 
 /**
- * Created by ifan on 03/12/2015.
+ * @file Square.java
+ * @author eghar
+ * @date 1st November
+ * @see Tile.java , Mine.java
  */
+
 public class Square extends Tile  {
 
     private int m_NumOfMinesAdjacent;
 
     public Square(int xPos, int yPos, boolean isHidd, boolean isDiff, int mineAdj){
         super(xPos, yPos, isHidd, isDiff);
-        setM_NumOfMinesAdjacent(mineAdj);
+        setNumOfMinesAdjacent(mineAdj);
         super.setM_IsMine(false);
         addMouseListener(new Player());
     }
-    public int getNumOfMinesAdjacent(){
-        return m_NumOfMinesAdjacent;
-    }
+    
+    /**
+     * Set Number of mines adjacent (8x8) to square.
+     * @param numMines int number of mines adjacent.
+     */
 
-    public void setM_NumOfMinesAdjacent(int numMines)   {
+    public void setNumOfMinesAdjacent(int numMines)   {
         m_NumOfMinesAdjacent = numMines;
     }
 
+    /**
+     * Increments Number of adjacent mines.
+     */
     public void increaseMineCount() {
         m_NumOfMinesAdjacent++;
     }
+    
+    /**
+     * Gets number of Mines Adjacent to square.
+     * @return m_NumOfMinesAdjacents
+     */
+    public int getNumOfMinesAdjacent(){
+        return m_NumOfMinesAdjacent;
+    }
+    
+    
+    /**
+     * Toggles image on square.
+     * Sets numbers for number of adjacent mines.
+     */
     public void paintComponent(Graphics graphics)    {
         super.paintComponent(graphics);
         if (getIsHidden())  {
-            //graphics.setColor(getColor());
         }
-        if (getIsDiffused() && getIsHidden())    {
-            //Color diffusedTile = Color.yellow;
+        if (getIsDiffused() && getIsHidden()){
         	setIcon(new ImageIcon(Square.class.getResource("/images/Actions-flag-blue-icon.png")));
-        	//graphics.setColor(diffusedTile);
-            //graphics.fillRect(20,20,20,20);
         }
         if (!getIsDiffused() && getIsHidden()){
         	setIcon(null);

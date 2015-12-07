@@ -2,14 +2,28 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- * Created by ifan on 04/12/2015.
+ * @file Player.java
+ * @author Yousef
+ * @date 04/12/2015
+ * @see RevealAlgorithm.java for related stuff
+ * @see Boardclass.java for related stuff
+ * @see Tile.java for related stuff
  */
 public class Player implements MouseListener{
 
     private RevealAlgorithm revealAlgorithm;
     private Diffuse diffuse;
 
-
+    /**
+     * A normal member taking one argument and returning
+     * @param e a MouseEvent argument.
+     * @see getSource()
+     * @see getButton()
+     * @see getXPosition()
+     * @see getYPosition()
+     * @see ifMine()
+     * @return When clicking on a tile you can either defuse or reveal it.
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         Tile t = (Tile) e.getSource();

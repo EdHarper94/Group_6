@@ -1,77 +1,63 @@
-import javax.swing.JOptionPane;
-
 /**
  * @file GameResult.java
  * @author James Michael
  * @date 03 Dec 2015
  *
- * This class will be used to help determine the result of the game
+ * This class is used to help calculate when the game has been won or lost.
+ * RevealAlgorithm sets the game result to a loss immediately upon clicking a mine,
+ * whereas this class collaborates with Counter to work out when the game has been won.
  */
-
 public class GameResult{
-	private boolean gameWon;
-	private static boolean gameLost;
+	private boolean m_GameWon;
+	private static boolean m_GameLost;
 	private int m_TotalTiles;
 
-	//if the game result is being handled in another class, pass to this:
-	/*public GameResult(boolean result){
-		setGameResult(result);
-	}*/
-
 	public GameResult(){ 
-		gameWon = false;
-		gameLost = false;
+		m_GameWon = false;
+		m_GameLost = false;
 		m_TotalTiles = GameSetup.getNumberOfTiles() * GameSetup.getNumberOfTiles();
 	}
 
-	//this method will handle whether won/lost, possibly animation (i'm thinking JOptionPane)
-	/*public boolean setGameResult(boolean gameResult){
-		if (gameResult == true){
-			gameWon = true;
-		}
-		if (gameResult == false){
-			gameLost = true;
-		}
+	/**
+	 * Gets the game result if the game has been won
+	 * @return a boolean value representing game won
+	 */
+	public boolean getGameResult(){
+		return m_GameWon;
+	}
 
-	}*/
+	/**
+	 * Gets the game result if the game has been lose
+	 * @return a boolean value representing game lost
+	 */
+	public boolean getGameLoss(){
+		return m_GameLost;
+	}
 
+	/**
+     * Calculates the winning condition of the game -
+	 * if the number of mines diffused is equal to the total mines and 
+	 * the total tiles minus the revealed tiles is equal to the mine count then 
+	 * the game has been won. Otherwise it has not yet been won.
+	 * @param
+	 * @see Counter.java for the get methods used
+	 */
 	public void setGameResult(){
 		if (Counter.getDiffusedCount() == Counter.getMineCount()){
 			if ((m_TotalTiles - Counter.getRevealedTileCount()) == Counter.getMineCount()){
-				gameWon = true;
+				m_GameWon = true;
 			}
-			}else{
-				gameWon = false;
-			}		
+		} else {
+			m_GameWon = false;
+		}		
 	}
 	
+	/**
+     * Taking in one argument and setting the game result to a loss
+	 * @param loss a boolean argument
+	 * @see RevealAlgorithm.java for where this method is used
+	 */
 	public static void setGameLoss(boolean loss){
-		gameLost = loss;
-		//String gameLoss = "You Lose!";
-		//JOptionPane.showMessageDialog(new JFrame(), gameLoss, "You Lose!", JOptionPane.WARNING_MESSAGE);
-		
+		m_GameLost = loss;		
 	}
-
-	public boolean getGameResult(){
-		return gameWon;
-	}
-	public boolean getGameLoss(){
-		return gameLost;
-	}
-/*
-	//this method will return the appropriate outcome
-	public JOptionPane getGameResult(){
-		//return gameResult;
-		if (gameWon == true){
-			String won = "You Win!";
-			Game.isGameRunning(false);
-			//JOptionPane.showMessageDialog(frame, won, "You Win!", JOptionPane.WARNING_MESSAGE);
-			return JOptionPane.showMessageDialog(frame, won, "You Win!", JOptionPane.WARNING_MESSAGE);
-		}
-		String loss = "You Lose!";
-		return JOptionPane.showMessageDialog(frame, loss, "You Lose!", JOptionPane.WARNING_MESSAGE);
-//		String won = "You Win!";
-//			JOptionPane.showMessageDialog(frame, won, "You Win!", JOptionPane.WARNING_MESSAGE);
-	}
-	*/
 }
